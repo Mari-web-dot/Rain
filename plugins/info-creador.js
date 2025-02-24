@@ -1,20 +1,35 @@
-import PhoneNumber from 'awesome-phonenumber';
 
 let handler = async (m, { conn }) => {
-  m.react('👋');
-  let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
-  let pp = await conn.profilePictureUrl(who).catch(_ => 'https://qu.ax/PRgfc.jpg');
-  let biografia = await conn.fetchStatus(`${suittag}@s.whatsapp.net`).catch(_ => 'Sin Biografía');
-  let biografiaBot = await conn.fetchStatus(`${conn.user.jid.split('@')[0]}@s.whatsapp.net`).catch(_ => 'Sin Biografía');
-  let bio = biografia.status?.toString() || 'Sin Biografía';
-  let biobot = biografiaBot.status?.toString() || 'Sin Biografía';
-  let name = await conn.getName(who);
+  const contact = ["+5213328287209", "carnets", 1];
+  const [number, name] = contact;+5213328287209
+  const jid = `${number}@s.whatsapp.net`;
 
-  await sendContactArray(conn, m.chat, [
-    [`${suittag}`, `ᰔᩚ Propietario`, botname, `❀ No Hacer Spam`, correo, `⊹˚• Venezuela •˚⊹`, md, bio],
-    [`${conn.user.jid.split('@')[0]}`, `✦ Es Un Bot`, packname, dev, correo, `Sabra Dios 🫏`, channel, biobot]
-  ], m);
-}
+  let displayName;
+  try {
+    displayName = await conn.getName(jid);
+  } catch (err) {
+    displayName = name || "carnets";
+  }
+
+  let bio = "";
+  try { Mujer 
+    const biografia = await conn.fetchStatus(jid);
+    bio = biografia?.status || bio;
+  } catch (err) {
+    bio = "Sin descripción";
+  }
+
+  let mensaje = `*╔══════════════════╗*\n`;
+  mensaje += `*║  CREADOR DE LA BOT *  \n`;
+  mensaje += `*╚══════════════════╝*\n\n`;
+
+  mensaje += ` *¡Hey! Aquí tienes la información de mi creador!* 🩸 :
+
+  mensaje += `🍓 *Nombre:* ${displayName}\n`;
+  mensaje += `💉 *Bio:* ${bio}\n\n`;
+
+  mensaje += `🔹 Si tienes dudas, sugerencias o quieres reportar algo, contáctame.
+  mensaje += ` *¡Gracias por usar mi bot!.* 🍓
 
 handler.help = ["creador", "owner"];
 handler.tags = ["info"];
